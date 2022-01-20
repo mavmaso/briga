@@ -25,7 +25,8 @@ config :briga, BrigaWeb.Endpoint,
   secret_key_base: "ELqzemhPi9Ncoi4j03v2aZF2K57uFhiATtCBa2+tuynkKeRXpHA1J5Sb3omatYXm",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support
