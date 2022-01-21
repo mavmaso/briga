@@ -1,4 +1,9 @@
-<section class="container">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
+<div class="container">
+  <p>Share the url or room number with other to join the room.</p>
+
+  <%= form_for @form, Routes.page_path(@conn, :room), fn _f -> %>
+    <div>
+        <%= submit "Create a new room", class: "bnt" %>
+    </div>
+  <% end %>
+</div>

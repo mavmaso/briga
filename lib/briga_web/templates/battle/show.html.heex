@@ -1,0 +1,11 @@
+<div class="container">
+  <p>Select:</p>
+  <%= form_for @form, Routes.battle_path(@conn, :start), fn f -> %>
+    <div>
+      <%= select  f, :role, [host: "player one", rival: "player two", guest: "guest"], prompt: [key: "Choose your role", disabled: true] %>
+    </div>
+    <div>
+      <%= submit "Enter", class: "bnt" %>
+    </div>
+  <% end %>
+</div>
