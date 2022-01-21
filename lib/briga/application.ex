@@ -8,16 +8,11 @@ defmodule Briga.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
       Briga.Repo,
-      # Start the Telemetry supervisor
       BrigaWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Briga.PubSub},
-      # Start the Endpoint (http/https)
-      BrigaWeb.Endpoint
-      # Start a worker by calling: Briga.Worker.start_link(arg)
-      # {Briga.Worker, arg}
+      BrigaWeb.Endpoint,
+      Briga.RoomSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
