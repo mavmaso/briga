@@ -1,9 +1,19 @@
 <div class="container">
+  <h1> - LOBBY - </h1>
+  <p>Your room is: <%= @name %></p>
   <p>Select:</p>
   <%= form_for @form, Routes.battle_path(@conn, :start), fn f -> %>
     <div>
-      <%= select  f, :role, [host: "player one", rival: "player two", guest: "guest"], prompt: [key: "Choose your role", disabled: true] %>
+      <%= label f, :host %>
+      <%= radio_button f, :role, "host" %>
+
+      <%= label f, :rival %>
+      <%= radio_button f, :role, "rival" %>
+
+      <%= label f, :guest %>
+      <%= radio_button f, :role, "guest" %>
     </div>
+    <%= hidden_input f, :name, value: @name %>
     <div>
       <%= submit "Enter", class: "bnt" %>
     </div>

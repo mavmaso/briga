@@ -10,13 +10,14 @@ defmodule BrigaWeb.BattleController do
       nil ->
         redirect(conn, to: "/")
       _pid ->
-        render(conn, "show.html", form: :form)
+        render(conn, "show.html", form: :form, name: name)
     end
   end
 
   def start(conn, %{"form" => params}) do
     live_render(conn, BrigaWeb.ArenaLive, session: %{
-      "role" => params["role"]
+      "role" => params["role"],
+      "name" => params["name"]
     })
   end
 end

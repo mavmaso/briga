@@ -1,2 +1,42 @@
-<p><%= @name %></p>
-<p><%= @role %></p>
+<div class="flex justify-center">
+  <p class="mx-1">arena: <%= @name %></p>
+  <p class="mx-1">role: <%= @role %></p>
+</div>
+
+<%# TELA/MESA %>
+<div class="container flex m-5">
+  <div class="m-3 flex-1 bg-stone-400">
+    <b><h1>HOST</h1></b>
+    <%= for {k, v} <- @host do%>
+    <p><%= k %>: <%= v %></p>
+    <% end  %>
+  </div>
+  <div class="m-3 flex-1 bg-stone-400">
+    <b><h1>RIVAL</h1></b> 
+    <%= for {k, v} <- @rival do %>
+    <p><%= k %>: <%= v %></p>
+    <% end  %>
+  </div>
+</div>
+
+<%# controles/DECK %>
+<div class="container bg-neutral-200">
+  <%= unless @role == "guest" do %>
+    <div class="flex">
+    <%= for card <- @cards do %>
+    <button class="sm:w-1/4 p-1" phx-click={card.text}>
+      <div class="bg-white px-6 py-8 hover:shadow-xl rounded border-b-4 border-red-500 shadow-md">
+        <h3 class="text-2xl mb-3 font-semibold inline-flex"><%= card.text %></h3>
+        <p class="text-md">valor: <%= card.value %></p>
+        <p class="text-md">frame: <%= card.frame %></p>
+        <p class="text-md">type: <%= card.type %></p>
+      </div>
+    </button>
+    <% end %>
+    </div>
+  <% end %>
+
+  <%= if @role == "guest" do %>
+    <h1>SENTA E OLHA</h1>
+  <% end %>
+</div>
