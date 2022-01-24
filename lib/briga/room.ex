@@ -2,7 +2,7 @@ defmodule Briga.Room do
   use Agent
 
   def start_link(name) do
-    Agent.start_link(fn -> %{host: %{}, rival: %{}, scene: 1} end, name: global_name(name))
+    Agent.start_link(fn -> data() end, name: global_name(name))
   end
 
   def whereis(name) do
@@ -17,4 +17,9 @@ defmodule Briga.Room do
   end
 
   defp global_name(name), do: {:global, {__MODULE__, name}}
+
+  defp data, do: %{
+    host: Briga.Arena.Souls.player(),
+    rival: Briga.Arena.Souls.player()
+  }
 end

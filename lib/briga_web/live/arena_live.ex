@@ -1,27 +1,38 @@
 defmodule BrigaWeb.ArenaLive do
   use BrigaWeb, :live_view
 
+  alias Briga.Arena.Cards
+  # alias Briga.Arena
+  alias Briga.Room
+
+  alias BrigaWeb.Endpoint
+
   def mount(_params, session, socket) do
+    name = session["name"]
+
+    if connected?(socket), do: Endpoint.subscribe(name)
+
     {:ok, assign(socket, %{
-      name: session["name"],
-      role: session["role"],
-      host: player(),
-      rival: player(),
-      cards: [weak(), strong(), grab(), block()]
+      name: name,
+      role: session["role"] |> String.to_atom(),
+      host: Room.get(name)[:host],
+      rival: Room.get(name)[:rival],
+      cards: [
+        Cards.weak(), Cards.strong(), Cards.grab(), Cards.block()
+      ]
     })}
   end
 
-  def handle_event(event, _value, socket) do
+  def handle_event("block", _value, %{assigns: state} = socket) do
+    date = :block
+    Endpoint.broadcast(state.name, "event", date)
 
     {:noreply, socket}
   end
 
-  defp player, do: %{hp: 30, focus: 0, status: :ok, card: ["vazio"]}
+  def handle_info(%{event: "event", payload: value}, %{assigns: state} = socket) do
+    map = %{state.role => Map.merge(state[state.role], %{status: value})}
 
-  defp weak, do: %{value: 2, frame: 2, text: "weak", type: :a}
-  defp strong, do: %{value: 5, frame: 4, text: "strong", type: :a}
-  defp grab, do: %{value: 3, frame: 5, text: "grap", type: :a}
-
-  defp block, do: %{value: -1, frame: 1, text: "block", type: :d}
-
+    {:noreply, assign(socket, map)}
+  end
 end
