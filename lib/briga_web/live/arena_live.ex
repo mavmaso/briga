@@ -3,7 +3,7 @@ defmodule BrigaWeb.ArenaLive do
 
   alias Briga.Arena.Cards
   # alias Briga.Arena
-  alias Briga.Room
+  alias Briga.Luta
 
   alias BrigaWeb.Endpoint
 
@@ -15,8 +15,8 @@ defmodule BrigaWeb.ArenaLive do
     {:ok, assign(socket, %{
       name: name,
       role: session["role"] |> String.to_atom(),
-      host: Room.get(name)[:host],
-      rival: Room.get(name)[:rival],
+      host: Luta.get(name)[:host],
+      rival: Luta.get(name)[:rival],
       cards: [
         Cards.weak(), Cards.strong(), Cards.grab(), Cards.block()
       ]

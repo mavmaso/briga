@@ -1,4 +1,4 @@
-defmodule Briga.Room do
+defmodule Briga.Luta do
   use Agent
 
   def start_link(name) do

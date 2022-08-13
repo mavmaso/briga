@@ -1,4 +1,4 @@
-defmodule Briga.RoomSupervisor do
+defmodule Briga.LutaSupervisor do
   use DynamicSupervisor
 
   def start_link(_init_arg) do
@@ -11,7 +11,7 @@ defmodule Briga.RoomSupervisor do
   end
 
   def create(name) do
-    case DynamicSupervisor.start_child(__MODULE__, {Briga.Room, name}) do
+    case DynamicSupervisor.start_child(__MODULE__, {Briga.Luta, name}) do
       {:ok, pid} -> pid
       {:error, {:already_started, pid}} -> pid
     end

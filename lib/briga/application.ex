@@ -12,7 +12,7 @@ defmodule Briga.Application do
       BrigaWeb.Telemetry,
       {Phoenix.PubSub, name: Briga.PubSub},
       BrigaWeb.Endpoint,
-      Briga.RoomSupervisor
+      Briga.LutaSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

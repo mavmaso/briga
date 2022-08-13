@@ -1,9 +1,17 @@
 <div class="container">
-  <p>Share the url or room number with other to join the room.</p>
+  <p>Share the url or arena number with other to join the arena.</p>
 
-  <%= form_for @form, Routes.page_path(@conn, :room), fn _f -> %>
+  <%= form_for @conn, Routes.page_path(@conn, :luta), fn _f -> %>
     <div>
-        <%= submit "Create a new room", class: "bnt" %>
+        <%= submit "Create a new arena", class: "bnt" %>
+    </div>
+  <% end %>
+
+  <%= form_for @conn, Routes.battle_path(@conn, :show), [method: :get], fn f -> %>
+    <div class="mx-auto mt-16">
+        <%= label f, "Arena number: " %>
+        <%= text_input f, :n %>
+        <%= submit "Enter", class: "bnt"%>
     </div>
   <% end %>
 </div>

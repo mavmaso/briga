@@ -18,7 +18,7 @@ defmodule BrigaWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    post "/", PageController, :room
+    post "/", PageController, :luta
 
     get "/battle", BattleController, :show
     post "/battle", BattleController, :start

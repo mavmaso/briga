@@ -1,6 +1,6 @@
 <div class="container">
   <h1> - LOBBY - </h1>
-  <p>Your room is: <%= @name %></p>
+  <p>Your arena is: <%= @name %></p>
   <p>Select:</p>
   <%= form_for @form, Routes.battle_path(@conn, :start), fn f -> %>
     <div>

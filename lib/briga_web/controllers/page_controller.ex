@@ -5,9 +5,9 @@ defmodule BrigaWeb.PageController do
     render(conn, "index.html", form: :form)
   end
 
-  def room(conn, _params) do
+  def luta(conn, _params) do
     num = System.unique_integer([:positive]) |> Integer.to_string()
-    Briga.RoomSupervisor.create(num)
+    Briga.LutaSupervisor.create(num)
 
     redirect(conn, to: "/battle?n=#{num}")
   end

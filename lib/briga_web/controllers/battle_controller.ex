@@ -1,12 +1,12 @@
 defmodule BrigaWeb.BattleController do
   use BrigaWeb, :controller
 
-  alias Briga.Room
+  alias Briga.Luta
 
   import Phoenix.LiveView.Controller
 
   def show(conn, %{"n" => name}) do
-    case Room.whereis(name) do
+    case Luta.whereis(name) do
       nil ->
         redirect(conn, to: "/")
       _pid ->
