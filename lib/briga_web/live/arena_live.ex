@@ -2,21 +2,21 @@ defmodule BrigaWeb.ArenaLive do
   use BrigaWeb, :live_view
 
   alias Briga.Arena.Cards
-  # alias Briga.Arena
   alias Briga.Luta
 
   alias BrigaWeb.Endpoint
 
   def mount(_params, session, socket) do
-    name = session["name"]
+    arena = session["arena"]
 
-    if connected?(socket), do: Endpoint.subscribe(name)
+    if connected?(socket), do: Endpoint.subscribe(arena)
 
     {:ok, assign(socket, %{
-      name: name,
+      arena: arena,
+      username: session["username"],
       role: session["role"] |> String.to_atom(),
-      host: Luta.get(name)[:host],
-      rival: Luta.get(name)[:rival],
+      host: Luta.get(arena)[:host],
+      rival: Luta.get(arena)[:rival],
       cards: [
         Cards.weak(), Cards.strong(), Cards.grab(), Cards.block()
       ]

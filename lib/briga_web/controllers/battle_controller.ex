@@ -5,19 +5,20 @@ defmodule BrigaWeb.BattleController do
 
   import Phoenix.LiveView.Controller
 
-  def show(conn, %{"n" => name}) do
-    case Luta.whereis(name) do
+  def show(conn, %{"n" => arena}) do
+    case Luta.whereis(arena) do
       nil ->
         redirect(conn, to: "/")
       _pid ->
-        render(conn, "show.html", form: :form, name: name)
+        render(conn, "show.html", form: :form, arena: arena)
     end
   end
 
   def start(conn, %{"form" => params}) do
     live_render(conn, BrigaWeb.ArenaLive, session: %{
       "role" => params["role"],
-      "name" => params["name"]
+      "username" => params["username"],
+      "arena" => params["arena"]
     })
   end
 end
