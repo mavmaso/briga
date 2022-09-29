@@ -17,6 +17,8 @@ defmodule BrigaWeb.ArenaLive do
       role: session["role"] |> String.to_atom(),
       host: Luta.get(arena)[:host],
       rival: Luta.get(arena)[:rival],
+      turn: 0,
+      evento: "nada",
       cards: [
         Cards.weak(), Cards.strong(), Cards.grab(), Cards.block()
       ]
@@ -25,14 +27,22 @@ defmodule BrigaWeb.ArenaLive do
 
   def handle_event("block", _value, %{assigns: state} = socket) do
     date = :block
-    Endpoint.broadcast(state.name, "event", date)
+    Luta.update_players(state.arena, %{state.role => Map.merge(state[state.role], %{stance: date})})
+    Endpoint.broadcast(state.arena, "event", date)
+
+    {:noreply, socket}
+  end
+
+  def handle_event("atack", _value, %{assigns: state} = socket) do
+    date = :atack
+    Luta.update_players(state.arena, %{state.role => Map.merge(state[state.role], %{stance: date})})
+    Endpoint.broadcast(state.arena, "event", date)
 
     {:noreply, socket}
   end
 
   def handle_info(%{event: "event", payload: value}, %{assigns: state} = socket) do
-    map = %{state.role => Map.merge(state[state.role], %{status: value})}
 
-    {:noreply, assign(socket, map)}
+    {:noreply, assign(socket, evento: "#{state.username}: #{value}")}
   end
 end

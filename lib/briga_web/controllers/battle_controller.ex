@@ -14,6 +14,8 @@ defmodule BrigaWeb.BattleController do
     end
   end
 
+  def show(conn, _), do: redirect(conn, to: "/")
+
   def start(conn, %{"form" => params}) do
     live_render(conn, BrigaWeb.ArenaLive, session: %{
       "role" => params["role"],

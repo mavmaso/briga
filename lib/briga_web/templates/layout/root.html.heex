@@ -12,10 +12,10 @@
   <body>
     <header>
       <section class="container">
-        <nav>
+        <nav class="flex justify-center">
           <ul>
             <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-              <li><%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
+              <li><%= link "Dashboard", to: Routes.live_dashboard_path(@conn, :home) %></li>
             <% end %>
           </ul>
         </nav>

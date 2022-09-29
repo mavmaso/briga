@@ -4,6 +4,6 @@ defmodule Briga.Arena.Souls do
   """
 
   def player, do: %{
-    hp: 30, focus: 1, status: :ok, card: ["vazio"]
+    hp: 30, focus: 1, stance: :ok, atk: 2, def: 1
   }
 end

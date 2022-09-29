@@ -12,8 +12,14 @@ defmodule Briga.Luta do
     end
   end
 
-  def get(name) do
-    Agent.get(global_name(name), & &1)
+  def get(name), do: Agent.get(global_name(name), & &1)
+
+  def update_players(name, value) do
+    Agent.get_and_update(global_name(name), fn state ->
+      state = Map.merge(state, value) |> IO.inspect
+
+      {state, state}
+    end)
   end
 
   defp global_name(name), do: {:global, {__MODULE__, name}}

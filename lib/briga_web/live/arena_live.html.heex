@@ -1,7 +1,8 @@
 <div class="flex justify-center">
   <p class="mx-1">arena: <%= @arena %></p>
-  <p class="mx-1">You: <%= @username %></p>
+  <p class="mx-1">user: <%= @username %></p>
   <p class="mx-1">role: <%= @role %></p>
+  <p class="mx-1">turn: <%= @turn %></p>
 </div>
 
 <%# TELA/MESA %>
@@ -20,6 +21,12 @@
   </div>
 </div>
 
+<%# PROMPT %>
+<div class="flex justify-center bg-neutral-400">
+  <p class="m-2"> AQUI </p>
+  <p class="m-2"><%= @evento %></p>
+</div>
+
 <%# controles/DECK %>
 <div class=" bg-neutral-200">
   <%= unless @role == :guest do %>
@@ -29,7 +36,7 @@
         <div class="flex-1 bg-white px-6 py-8 hover:shadow-xl rounded border-b-4 border-red-500 shadow-md">
           <h3 class="text-2xl mb-3 font-semibold inline-flex"><%= card.text %></h3>
           <p class="text-md">valor: <%= card.value %></p>
-          <p class="text-md">frame: <%= card.frame %></p>
+          <p class="text-md">cost: <%= card.cost %></p>
           <p class="text-md">type: <%= card.type %></p>
         </div>
       </button>
