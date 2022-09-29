@@ -16,7 +16,7 @@ defmodule Briga.Luta do
 
   def update_players(name, value) do
     Agent.get_and_update(global_name(name), fn state ->
-      state = Map.merge(state, value) |> IO.inspect
+      state = Map.merge(state, value)
 
       {state, state}
     end)
@@ -24,8 +24,10 @@ defmodule Briga.Luta do
 
   defp global_name(name), do: {:global, {__MODULE__, name}}
 
-  defp data, do: %{
-    host: Briga.Arena.Souls.player(),
-    rival: Briga.Arena.Souls.player()
-  }
+  defp data do
+    %{
+      host: Briga.Arena.Souls.player(),
+      rival: Briga.Arena.Souls.player()
+    }
+  end
 end

@@ -9,6 +9,7 @@ defmodule BrigaWeb.BattleController do
     case Luta.whereis(arena) do
       nil ->
         redirect(conn, to: "/")
+
       _pid ->
         render(conn, "show.html", form: :form, arena: arena)
     end
@@ -17,10 +18,12 @@ defmodule BrigaWeb.BattleController do
   def show(conn, _), do: redirect(conn, to: "/")
 
   def start(conn, %{"form" => params}) do
-    live_render(conn, BrigaWeb.ArenaLive, session: %{
-      "role" => params["role"],
-      "username" => params["username"],
-      "arena" => params["arena"]
-    })
+    live_render(conn, BrigaWeb.ArenaLive,
+      session: %{
+        "role" => params["role"],
+        "username" => params["username"],
+        "arena" => params["arena"]
+      }
+    )
   end
 end
