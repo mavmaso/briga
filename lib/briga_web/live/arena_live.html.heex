@@ -14,7 +14,7 @@
     <% end  %>
   </div>
   <div class="m-3 flex-1 bg-stone-400">
-    <b><h1>RIVAL</h1></b> 
+    <b><h1>RIVAL</h1></b>
     <%= for {k, v} <- @rival do %>
     <p><%= k %>: <%= v %></p>
     <% end  %>
@@ -23,8 +23,9 @@
 
 <%# PROMPT %>
 <div class="flex justify-center bg-neutral-400">
-  <p class="m-2"> AQUI </p>
-  <p class="m-2"><%= @evento %></p>
+  <%= for e <- @evento do %>
+    <p class="m-2"><%= e %></p>
+  <% end %>
 </div>
 
 <%# controles/DECK %>

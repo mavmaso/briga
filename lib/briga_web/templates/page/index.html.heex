@@ -1,6 +1,8 @@
 <div class="container">
-  <p>Share the url or arena number with other to join the arena.</p>
-
+  <div class="flex justify-center">
+    <p class="mt-6 font-medium">Share the url or arena number with other to join the arena.</p>
+  </div>
+  
   <%= form_for @conn, Routes.page_path(@conn, :luta), fn _f -> %>
     <div>
         <%= submit "Create a new arena", class: "bnt" %>

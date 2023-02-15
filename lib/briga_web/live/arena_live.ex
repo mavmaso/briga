@@ -16,10 +16,10 @@ defmodule BrigaWeb.ArenaLive do
        arena: arena,
        username: session["username"],
        role: session["role"] |> String.to_atom(),
-       host: Luta.get(arena)[:host],
-       rival: Luta.get(arena)[:rival],
+       host: Luta.get_arena(arena)[:host],
+       rival: Luta.get_arena(arena)[:rival],
        turn: 0,
-       evento: "nada",
+       evento: [" "],
        cards: [
          Cards.weak(),
          Cards.strong(),
@@ -54,6 +54,11 @@ defmodule BrigaWeb.ArenaLive do
   end
 
   def handle_info(%{event: "event", payload: value}, %{assigns: state} = socket) do
-    {:noreply, assign(socket, evento: "#{state.username}: #{value}")}
+    arena = state.arena
+    evento = [" #{value} " | state.evento]
+    host = Luta.get_arena(arena)[:host]
+    rival = Luta.get_arena(arena)[:rival]
+
+    {:noreply, assign(socket, evento: evento, host: host, rival: rival)}
   end
 end

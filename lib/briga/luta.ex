@@ -5,6 +5,7 @@ defmodule Briga.Luta do
     Agent.start_link(fn -> data() end, name: global_name(name))
   end
 
+  @doc"WIP"
   def whereis(name) do
     case :global.whereis_name({__MODULE__, name}) do
       :undefined -> nil
@@ -12,8 +13,10 @@ defmodule Briga.Luta do
     end
   end
 
-  def get(name), do: Agent.get(global_name(name), & &1)
+  @doc"WIP"
+  def get_arena(name), do: Agent.get(global_name(name), & &1)
 
+  @doc"WIP"
   def update_players(name, value) do
     Agent.get_and_update(global_name(name), fn state ->
       state = Map.merge(state, value)
