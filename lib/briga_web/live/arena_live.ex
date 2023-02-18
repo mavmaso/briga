@@ -7,18 +7,21 @@ defmodule BrigaWeb.ArenaLive do
   alias BrigaWeb.Endpoint
 
   def mount(_params, session, socket) do
-    arena = session["arena"]
+    name = session["arena"]
+    arena = Luta.get_arena(name)
 
-    if connected?(socket), do: Endpoint.subscribe(arena)
+    if connected?(socket), do: Endpoint.subscribe(name)
+    Luta.start_turn(name, arena.phase)
 
     {:ok,
      assign(socket, %{
-       arena: arena,
+       name: name,
        username: session["username"],
        role: session["role"] |> String.to_atom(),
-       host: Luta.get_arena(arena)[:host],
-       rival: Luta.get_arena(arena)[:rival],
-       turn: 0,
+       host: arena.host,
+       rival: arena.rival,
+       turn: arena.turn,
+       phase: arena.phase,
        evento: [" "],
        cards: [
          Cards.weak(),
@@ -32,11 +35,11 @@ defmodule BrigaWeb.ArenaLive do
   def handle_event("block", _value, %{assigns: state} = socket) do
     date = :block
 
-    Luta.update_players(state.arena, %{
+    Luta.update_players(state.name, %{
       state.role => Map.merge(state[state.role], %{stance: date})
     })
 
-    Endpoint.broadcast(state.arena, "event", date)
+    Endpoint.broadcast(state.name, "event", date)
 
     {:noreply, socket}
   end
@@ -44,21 +47,31 @@ defmodule BrigaWeb.ArenaLive do
   def handle_event("atack", _value, %{assigns: state} = socket) do
     date = :atack
 
-    Luta.update_players(state.arena, %{
+    Luta.update_players(state.name, %{
       state.role => Map.merge(state[state.role], %{stance: date})
     })
 
-    Endpoint.broadcast(state.arena, "event", date)
+    Endpoint.broadcast(state.name, "event", date)
 
     {:noreply, socket}
   end
 
-  def handle_info(%{event: "event", payload: value}, %{assigns: state} = socket) do
-    arena = state.arena
-    evento = [" #{value} " | state.evento]
-    host = Luta.get_arena(arena)[:host]
-    rival = Luta.get_arena(arena)[:rival]
+  def handle_event(_button, _value, socket), do: {:noreply, socket}
 
-    {:noreply, assign(socket, evento: evento, host: host, rival: rival)}
+  def handle_info(%{event: "event", payload: value}, %{assigns: state} = socket) do
+    arena = Luta.get_arena(state.name)
+    evento = [" #{value} " | state.evento]
+
+    host = arena.host
+    rival = arena.rival
+    turn = arena.turn
+
+    {:noreply, assign(socket, evento: evento, host: host, rival: rival, turn: turn)}
+  end
+
+  def handle_info(params, socket) do
+    IO.inspect params, label: :arena_debug
+
+    {:noreply, socket}
   end
 end
