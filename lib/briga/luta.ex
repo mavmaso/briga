@@ -39,8 +39,8 @@ defmodule Briga.Luta do
       fn state ->
         state
         |> put_in([:turn], state.turn + 1)
-        |> put_in([:host, :focus], state.host.focus + 1)
-        |> put_in([:rival, :focus], state.rival.focus + 1)
+        |> put_in([:host, :focus], min(state.host.focus + 1, 10))
+        |> put_in([:rival, :focus], min(state.rival.focus + 1, 10))
       end,
       :infinity
     )

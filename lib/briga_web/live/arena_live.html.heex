@@ -31,8 +31,7 @@
 
 <%# controles/DECK %>
 <div class=" bg-neutral-200">
-  <%= unless @role == :guest do %>
-    <div class="flex">
+  <div :if= {@role != :guest} class="flex">
     <%= for card <- @cards do %>
       <button class="sm:w-1/4 p-1" phx-click={card.text}>
         <div class="flex-1 bg-white px-6 py-8 hover:shadow-xl rounded border-b-4 border-red-500 shadow-md">
@@ -43,10 +42,8 @@
         </div>
       </button>
     <% end %>
-    </div>
-  <% end %>
+  </div>
 
-  <%= if @role == :guest do %>
-    <h1>SENTA E OLHA</h1>
-  <% end %>
+  <h1 :if= {@role == :guest}>SENTA E OLHA</h1>
+
 </div>

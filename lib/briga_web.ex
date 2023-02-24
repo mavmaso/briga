@@ -45,7 +45,7 @@ defmodule BrigaWeb do
   def live_view do
     quote do
       use Phoenix.LiveView,
-        layout: {BrigaWeb.LayoutView, "live.html"}
+        layout: {BrigaWeb.LayoutView, :live}
 
       unquote(view_helpers())
     end
