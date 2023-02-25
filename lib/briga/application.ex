@@ -8,7 +8,7 @@ defmodule Briga.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Briga.Repo,
+      # Briga.Repo,
       BrigaWeb.Telemetry,
       {Phoenix.PubSub, name: Briga.PubSub},
       BrigaWeb.Endpoint,
