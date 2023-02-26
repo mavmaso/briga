@@ -3,7 +3,7 @@
   <p class="mx-1">user: <%= @username %></p>
   <p class="mx-1">role: <%= @role %></p>
   <p class="mx-1">turn: <%= @turn %></p>
-  <p class="mx-1">turn: <%= @phase %></p>
+  <p class="mx-1">phase: <%= @phase %></p>
 </div>
 
 <%# TELA/MESA %>
@@ -33,7 +33,7 @@
 <div class=" bg-neutral-200">
   <div :if= {@role != :guest} class="flex">
     <%= for card <- @cards do %>
-      <button class="sm:w-1/4 p-1" phx-click={card.text}>
+      <button class="sm:w-1/4 p-1" phx-click={card.text} id={"card-#{card.text}"}>
         <div class="flex-1 bg-white px-6 py-8 hover:shadow-xl rounded border-b-4 border-red-500 shadow-md">
           <h3 class="text-2xl mb-3 font-semibold inline-flex"><%= card.text %></h3>
           <p class="text-md">valor: <%= card.value %></p>
