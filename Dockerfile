@@ -33,9 +33,7 @@ COPY config/config.exs config/${MIX_ENV}.exs config/
 RUN mix deps.compile
 
 COPY priv priv
-
 COPY lib lib
-
 COPY assets assets
 
 # compile assets
@@ -76,5 +74,5 @@ COPY --from=builder --chown=nobody:root /app/_build/${MIX_ENV}/rel/briga .
 USER nobody
 
 # CMD ["sh", "/app/bin/briga", "start"]
-CMD ["bin/server"]
+CMD ["/app/bin/server"]
 # CMD /usr/local/bin/shell.sh ; sleep infinity

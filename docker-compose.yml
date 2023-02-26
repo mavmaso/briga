@@ -10,11 +10,9 @@ services:
   web:
     build: .
     container_name: briga-web
-    volumes:
-      - .:/app
     ports:
       - 4000:4000
-    links:
+    depends_on:
       - db
     env_file:
       - .env
