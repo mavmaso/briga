@@ -22,8 +22,14 @@ defmodule BrigaWeb.Router do
 
     get "/battle", BattleController, :show
     post "/battle", BattleController, :start
+  end
 
-    live "/arena", ArenaLive
+  live_session :default, on_mount: BrigaWeb.Hooks do
+    scope "/", BrigaWeb do
+      pipe_through :browser
+
+      live "/arena", ArenaLive
+    end
   end
 
   if Mix.env() in [:dev, :test] do

@@ -10,9 +10,13 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
 
-## Learn more
+## Commands
 
 docker build . -t briga:0.1
 docker run --env-file .env -p 4000:4000 briga:0.1
 
 docker-compose up -d
+
+npm install chromedriver --save-dev --prefix assets
+
+MIX_ENV=test mix e2e
