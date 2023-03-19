@@ -23,6 +23,7 @@ defmodule BrigaWeb.ArenaLive do
        turn: arena.turn,
        phase: arena.phase,
        evento: [" "],
+       modal: true,
        cards: [
          Cards.weak(),
          Cards.strong(),
@@ -48,6 +49,11 @@ defmodule BrigaWeb.ArenaLive do
     Endpoint.broadcast(state.name, "event", "#{state.role}: #{date}")
 
     {:noreply, socket}
+  end
+
+  def handle_event("save", value, socket) do
+    IO.inspect value
+    {:noreply, assign(socket, modal: false)}
   end
 
   def handle_event(_button, _value, socket), do: {:noreply, socket}

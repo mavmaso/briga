@@ -31,7 +31,7 @@
 
 <%# controles/DECK %>
 <div class=" bg-neutral-200">
-  <div :if= {@role != :guest} class="flex">
+  <div :if={@role != :guest} class="flex">
     <%= for card <- @cards do %>
       <button class="sm:w-1/4 p-1" phx-click={card.text} id={"card-#{card.text}"}>
         <div class="flex-1 bg-white px-6 py-8 hover:shadow-xl rounded border-b-4 border-red-500 shadow-md">
@@ -46,4 +46,34 @@
 
   <h1 :if= {@role == :guest}>SENTA E OLHA</h1>
 
+</div>
+
+<%# MODAL %>
+<div :if={@modal} class="fixed z-50 inset-0 overflow-auto bg-black bg-opacity-40">
+  <div class="bg-white mx-auto my-15 p-20 border border-gray-400 w-80">
+  <p>Select:</p>
+    <.form :let={f} for={%{}} phx-submit="save">
+      <div class="mt-1">
+          <%= label f, :username, "Your name: " %>
+          <%= text_input f, :username %>
+      </div>
+      <div class="mt-1">
+        <%= label f, :host %>
+        <%= radio_button f, :role, "host" %>
+      </div>
+
+      <div class="mt-1">
+        <%= label f, :rival %>
+        <%= radio_button f, :role, "rival" %>
+      </div>
+
+      <div class="mt-1">
+        <%= label f, :guest %>
+        <%= radio_button f, :role, "guest" %>
+      </div>
+      <div>
+        <%= submit "Enter", class: "bnt" %>
+      </div>
+    </.form>
+  </div>
 </div>
