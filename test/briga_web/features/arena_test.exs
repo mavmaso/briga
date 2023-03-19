@@ -1,7 +1,7 @@
 defmodule BrigaWeb.Features.ArenaTest do
   use BrigaWeb.FeatureCase, async: true
 
-  test "Create a Arena", %{session: session} do
+  test "Create an Arena", %{session: session} do
     name = "Outro"
 
     session
