@@ -9,6 +9,6 @@ defmodule BrigaWeb.PageController do
     num = System.unique_integer([:positive]) |> Integer.to_string()
     Briga.LutaSupervisor.create(num)
 
-    redirect(conn, to: "/battle?n=#{num}")
+    redirect(conn, to: "/battle?arena=#{num}")
   end
 end

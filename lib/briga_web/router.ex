@@ -20,17 +20,16 @@ defmodule BrigaWeb.Router do
     get "/", PageController, :index
     post "/", PageController, :luta
 
-    get "/battle", BattleController, :show
-    post "/battle", BattleController, :start
+    live "/battle", ArenaLive
   end
 
-  live_session :default, on_mount: BrigaWeb.Hooks do
-    scope "/", BrigaWeb do
-      pipe_through :browser
+  # live_session :default, on_mount: BrigaWeb.Hooks do
+  #   scope "/", BrigaWeb do
+  #     pipe_through :browser
 
-      live "/arena", ArenaLive
-    end
-  end
+  #     live "/arena", ArenaLive
+  #   end
+  # end
 
   if Mix.env() in [:dev, :test] do
     import Phoenix.LiveDashboard.Router

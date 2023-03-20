@@ -9,10 +9,10 @@
     </div>
   <% end %>
 
-  <%= form_for @conn, Routes.battle_path(@conn, :show), [method: :get], fn f -> %>
+  <%= form_for @conn, "/battle", [method: :get], fn f -> %>
     <div class="mx-auto mt-16">
         <%= label f, "Arena number: " %>
-        <%= text_input f, :n %>
+        <%= text_input f, :arena %>
         <%= submit "Enter", class: "bnt"%>
     </div>
   <% end %>

@@ -20,6 +20,8 @@ docker-compose up -d
 npm install chromedriver --save-dev --prefix assets
 
 brew install --cask chromedriver
+brew upgrade --cask chromedriver
+
 xattr -d com.apple.quarantine /opt/homebrew/bin/chromedriver
 
 MIX_ENV=test mix e2e
