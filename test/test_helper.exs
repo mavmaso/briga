@@ -1,5 +1,5 @@
 {:ok, _} = Application.ensure_all_started(:wallaby)
-Application.put_env(:wallaby, :base_url, BrigaWeb.Endpoint.url)
+Application.put_env(:wallaby, :base_url, BrigaWeb.Endpoint.url())
 
 ExUnit.configure(exclude: [:e2e])
 ExUnit.start()

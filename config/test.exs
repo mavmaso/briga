@@ -32,7 +32,6 @@ config :phoenix, :plug_init_mode, :runtime
 config :briga,
   sql_sandbox: true
 
-
 config :wallaby,
   otp_app: :briga,
   screenshot_on_failure: true,

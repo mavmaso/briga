@@ -1,4 +1,6 @@
 defmodule Briga.LutaSupervisor do
+  @moduledoc false
+
   use DynamicSupervisor
 
   def start_link(_init_arg) do

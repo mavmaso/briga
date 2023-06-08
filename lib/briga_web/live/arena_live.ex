@@ -78,9 +78,7 @@ defmodule BrigaWeb.ArenaLive do
     {:noreply, assign(socket, evento: evento, host: host, rival: rival, turn: turn)}
   end
 
-  def handle_info(params, socket) do
-    IO.inspect(params, label: :arena_debug)
-
+  def handle_info(_params, socket) do
     {:noreply, socket}
   end
 end

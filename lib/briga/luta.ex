@@ -1,4 +1,6 @@
 defmodule Briga.Luta do
+  @moduledoc "WIP"
+
   use Agent
 
   def start_link(name) do
