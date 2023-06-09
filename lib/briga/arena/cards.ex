@@ -1,6 +1,6 @@
 defmodule Briga.Arena.Cards do
   @moduledoc """
-  WIP
+  This module contains the cards/powers.
   """
 
   def weak, do: %{text: "atack", type: :stance, cost: 0, value: 1}

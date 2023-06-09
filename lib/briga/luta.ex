@@ -1,31 +1,33 @@
 defmodule Briga.Luta do
-  @moduledoc "WIP"
+  @moduledoc "This module is responsible for being the source of truth for the combat/fight itself.
+  Another point is to test the limits of Agent within OTP rather than using a GenServer,
+  which would be more robust, but using Agent could still be considered clean code."
 
   use Agent
+
+  alias Briga.Arena.Souls
 
   def start_link(name) do
     Agent.start_link(fn -> data() end, name: global_name(name))
   end
 
-  @doc "WIP"
+  @doc "Returns the PID of the combat Agent process.
+  Another concept test to understand the limitations and functionality of :global."
   def whereis(name) do
-    case :global.whereis_name({__MODULE__, name}) do
-      :undefined -> nil
-      pid -> pid
-    end
+    if :global.whereis_name({__MODULE__, name}) == :undefined, do: :not_found, else: :ok
   end
 
-  @doc "WIP"
+  @doc "Returns the values within the arena/fight of the given ID/name."
   def get_arena(name), do: Agent.get(global_name(name), & &1)
 
-  @doc "WIP"
+  @doc "Updates the data of one of the players within the arena."
   def update_player(name, player, key, value) do
     Agent.update(global_name(name), fn state ->
       put_in(state, [player, key], value)
     end)
   end
 
-  @doc "WIP"
+  @doc "Starts the fight by counting the turns/time and letting the combat happen."
   def start_turn(name, :pre_fight) do
     count_turn(name)
     Agent.update(global_name(name), fn s -> Map.merge(s, %{phase: :fight}) end, :infinity)
@@ -51,13 +53,11 @@ defmodule Briga.Luta do
   defp turn(name) do
     :timer.sleep(3_000)
 
-    case get_arena(name)[:phase] do
-      :finish ->
-        :ok
-
-      _ ->
-        count_turn(name)
-        turn(name)
+    if get_arena(name)[:phase] == :finish do
+      :ok
+    else
+      count_turn(name)
+      turn(name)
     end
   end
 
@@ -66,8 +66,8 @@ defmodule Briga.Luta do
   defp data do
     %{
       turn: 0,
-      host: Briga.Arena.Souls.player(),
-      rival: Briga.Arena.Souls.player(),
+      host: Souls.player(),
+      rival: Souls.player(),
       # :fight, :finish
       phase: :pre_fight
     }

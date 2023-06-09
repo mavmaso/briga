@@ -12,30 +12,28 @@ defmodule BrigaWeb.ArenaLive do
 
     if connected?(socket), do: Endpoint.subscribe(name)
 
-    case Luta.whereis(name) do
-      nil ->
-        redirect(socket, to: "/")
+    valor = %{
+      name: name,
+      username: " ",
+      role: :guest,
+      host: arena.host,
+      rival: arena.rival,
+      turn: arena.turn,
+      phase: arena.phase,
+      event: [" "],
+      modal: true,
+      cards: [
+        Cards.weak(),
+        Cards.strong(),
+        Cards.grab(),
+        Cards.block()
+      ]
+    }
 
-      _pid ->
-        valor = %{
-          name: name,
-          username: " ",
-          role: :guest,
-          host: arena.host,
-          rival: arena.rival,
-          turn: arena.turn,
-          phase: arena.phase,
-          evento: [" "],
-          modal: true,
-          cards: [
-            Cards.weak(),
-            Cards.strong(),
-            Cards.grab(),
-            Cards.block()
-          ]
-        }
-
-        {:ok, assign(socket, valor)}
+    if Luta.whereis(name) != :not_found do
+      {:ok, assign(socket, valor)}
+    else
+      redirect(socket, to: "/")
     end
   end
 
@@ -73,9 +71,9 @@ defmodule BrigaWeb.ArenaLive do
     host = arena.host
     rival = arena.rival
     turn = arena.turn
-    evento = ["Turn: #{turn} - #{value}" | state.evento]
+    event = ["Turn: #{turn} - #{value}" | state.event]
 
-    {:noreply, assign(socket, evento: evento, host: host, rival: rival, turn: turn)}
+    {:noreply, assign(socket, event: event, host: host, rival: rival, turn: turn)}
   end
 
   def handle_info(_params, socket) do

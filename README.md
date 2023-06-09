@@ -1,27 +1,48 @@
 # Briga
+ 
+It’s an app for a multiplayer game that emulates a real-time fighting game, but based on cards.
+The main inspiration for this game would be a mix of Street Fighter, JRPG, and Magic.
 
-To start your Phoenix server:
+### Proposal Problem
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+  This app was built as a POC to learn/train liveview and get out of the comfort zone. Therefore, it was not always possible to apply the best patterns and architecture, sometimes due to lack of knowledge or to test how far a certain concept could go.But without forgetting to write clean code and do our best to deliver within the limitations.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Deps for Linux
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- `sudo apt update`
+- `sudo apt upgrade`
+- `sudo apt install -y build-essential libssl-dev zlib1g-dev automake autoconf libncurses5-dev`
 
-## Commands
+## In loco Setup
 
-docker build . -t briga:0.1
-docker run --env-file .env -p 4000:4000 briga:0.1
+- Install dependencies with `mix deps.get`
+- Create and migrate your database with `mix ecto.setup`
+- Start Phoenix endpoint with `mix phx.server`
+- Run complete tests `mix test`
 
-docker-compose up -d
+## Docker
+- docker-compose build
+- docker-compose run --rm web mix deps.get
+- docker-compose run --rm web mix ecto.setup
+- docker-compose run --rm web mix test
+- docker-compose up --force-recreate
 
-npm install chromedriver --save-dev --prefix assets
+## Database
+  PostgreSQL
+  ```
+  username: postgres
+  password: postgres
+  ```
 
-brew install --cask chromedriver
-brew upgrade --cask chromedriver
+## Using
 
-xattr -d com.apple.quarantine /opt/homebrew/bin/chromedriver
+ You can use 
 
-MIX_ENV=test mix e2e
+### Endpoint
+
+ - "/"
+ - "/battle"
+
+## Made by
+
+ - [mavmaso](https://github.com/mavmaso)

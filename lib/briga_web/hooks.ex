@@ -1,5 +1,5 @@
 defmodule BrigaWeb.Hooks do
-  @moduledoc "WIP"
+  @moduledoc "This module was made to assist in testing/using Wallaby in conjunction with Ecto."
 
   import Phoenix.Component
   import Phoenix.LiveView
