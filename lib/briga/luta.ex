@@ -13,14 +13,17 @@ defmodule Briga.Luta do
 
   @doc "Returns the PID of the combat Agent process.
   Another concept test to understand the limitations and functionality of :global."
+  @spec whereis(atom) :: pid | :not_found
   def whereis(name) do
     if :global.whereis_name({__MODULE__, name}) == :undefined, do: :not_found, else: :ok
   end
 
   @doc "Returns the values within the arena/fight of the given ID/name."
+  @spec get_arena(atom) :: map
   def get_arena(name), do: Agent.get(global_name(name), & &1)
 
   @doc "Updates the data of one of the players within the arena."
+  @spec update_player(atom, atom, atom, any) :: map
   def update_player(name, player, key, value) do
     Agent.update(global_name(name), fn state ->
       put_in(state, [player, key], value)

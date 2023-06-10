@@ -1,0 +1,21 @@
+{
+  "coverage_options": {
+      "treat_no_relevant_lines_as_covered": true,
+      "minimum_coverage": 75.0
+  },
+  "terminal_options": {
+      "print_files": true
+  },
+  "skip_files": [
+      "deps",
+      "priv/",
+      "test",
+      "lib/briga_web.ex",
+      "lib/briga/release.ex",
+      "lib/briga/application.ex",
+      "lib/briga_web/router.ex",
+      "lib/briga_web/hooks.ex",
+      "lib/briga_web/telemetry.ex",
+      "lib/briga_web/views/error_helpers.ex"
+  ]
+}
