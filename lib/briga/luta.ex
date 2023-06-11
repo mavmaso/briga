@@ -19,11 +19,12 @@ defmodule Briga.Luta do
   end
 
   @doc "Returns the values within the arena/fight of the given ID/name."
-  @spec get_arena(atom) :: map
+  @spec get_arena(atom) :: map | :arena_not_found
+  def get_arena(nil), do: :arena_not_found
   def get_arena(name), do: Agent.get(global_name(name), & &1)
 
   @doc "Updates the data of one of the players within the arena."
-  @spec update_player(atom, atom, atom, any) :: map
+  @spec update_player(atom, atom, atom, any) :: :ok
   def update_player(name, player, key, value) do
     Agent.update(global_name(name), fn state ->
       put_in(state, [player, key], value)

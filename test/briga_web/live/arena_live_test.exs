@@ -18,5 +18,11 @@ defmodule BrigaWeb.ArenaLiveTest do
       assert lv |> element("#card-atack") |> render_click()
       assert render(lv) =~ "stance: atack"
     end
+
+    test "render homepage when no arena found", %{conn: conn} do
+      conn = get(conn, "/battle")
+
+      assert html_response(conn, 302)
+    end
   end
 end
